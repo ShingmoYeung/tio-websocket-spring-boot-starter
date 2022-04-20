@@ -4,7 +4,7 @@ tio:
   websocket:
     port: 6789
     heartbeat-timeout: 180000
-    ssl:
-      key-store: /your/store/path
-      trust-store: /your/trust/store/path
-      password: your-password
+#     ssl:
+#       key-store: /your/store/path
+#       trust-store: /your/trust/store/path
+#       password: your-password

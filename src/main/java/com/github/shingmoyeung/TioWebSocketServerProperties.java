@@ -1,4 +1,4 @@
-package com.github.fanpan26;
+package com.github.shingmoyeung;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -11,7 +11,7 @@ public class TioWebSocketServerProperties {
     /**
      * 服务名称
      * */
-    private String name = "Tio-WebSocket-SpringBoot-Starter";
+    private String name = "tio-websocket-springboot-starter";
     /**
      * 服务绑定的 IP 地址，默认不绑定
      */

@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.6.RELEASE</version>
+		<version>2.2.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.github.fanpan26</groupId>
+	<groupId>com.github.shingmoyeung</groupId>
 	<artifactId>tio-websocket-starter-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tio-websocket-starter-demo</name>
@@ -22,8 +22,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!--<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>-->
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -36,9 +41,9 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.github.fanpan26</groupId>
+			<groupId>com.github.shingmoyeung</groupId>
 			<artifactId>tio-websocket-spring-boot-starter</artifactId>
-			<version>1.0.0.RELEASE</version>
+			<version>1.0.0-RELEASE</version>
 		</dependency>
 	</dependencies>
 
@@ -50,5 +55,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

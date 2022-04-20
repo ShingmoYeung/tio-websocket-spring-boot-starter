@@ -1,4 +1,4 @@
-package com.github.fanpan26;
+package com.github.shingmoyeung;
 
 import org.springframework.stereotype.Component;
 import org.tio.server.ServerTioConfig;
@@ -7,20 +7,20 @@ import org.tio.server.ServerTioConfig;
  * @author fanyuepan
  */
 @Component
-public class MyApplicationListener implements TioWebSocketApplicationListener {
+public class MyTioApplicationListener implements TioWebSocketApplicationListener {
 
     @Override
     public void onConfiguration(ServerTioConfig serverTioConfig) {
-        //这里可以补充开发者自定义的一些配置信息
+        System.out.println("onConfiguration....");
     }
 
     @Override
     public void onCompleted(ServerTioConfig serverTioConfig) {
-        //server启动完成
+        System.out.println("onCompleted....");
     }
 
     @Override
     public void onException(Throwable throwable) {
-       //当启动过程中出现异常时触发此方法
+        throw new RuntimeException(throwable);
     }
 }

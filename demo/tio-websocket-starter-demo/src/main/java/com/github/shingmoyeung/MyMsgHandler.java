@@ -1,4 +1,4 @@
-package com.github.fanpan26;
+package com.github.shingmoyeung;
 
 import org.springframework.stereotype.Component;
 import org.tio.core.ChannelContext;
@@ -14,13 +14,15 @@ import org.tio.websocket.server.handler.IWsMsgHandler;
 @Component
 public class MyMsgHandler implements IWsMsgHandler {
     @Override
-    public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
+    public HttpResponse handshake(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext)
+            throws Exception {
         return httpResponse;
     }
 
     @Override
-    public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext) throws Exception {
-        Tio.bindUser(channelContext,"test-uid");
+    public void onAfterHandshaked(HttpRequest httpRequest, HttpResponse httpResponse, ChannelContext channelContext)
+            throws Exception {
+        Tio.bindUser(channelContext, "test-uid");
     }
 
     @Override

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.fanpan26</groupId>
+    <groupId>com.github.shingmoyeung</groupId>
     <artifactId>tio-websocket-spring-boot-starter</artifactId>
     <version>1.0.0-RELEASE</version>
 
@@ -15,28 +15,29 @@
     <licenses>
         <license>
             <name>Apache License 2.0</name>
-            <url>https://github.com/fanpan26/tio-websocket-spring-boot-starter/blob/main/LICENSE</url>
+            <url>https://github.com/ShingmoYeung/tio-websocket-spring-boot-starter/blob/main/LICENSE</url>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>fanpan26</name>
-            <email>xpanzi@126.com</email>
+            <name>Shingmo Yeung</name>
+            <email>525032303@qq.com</email>
         </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:fanpan26/tio-websocket-spring-boot-starter.git</connection>
-        <developerConnection>scm:git:git@github.com:fanpan26/tio-websocket-spring-boot-starter.git</developerConnection>
-        <url>git@github.com:fanpan26/tio-websocket-spring-boot-starter.git</url>
+        <connection>scm:git:git@github.com:ShingmoYeung/tio-websocket-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:git@github.com:ShingmoYeung/tio-websocket-spring-boot-starter.git</developerConnection>
+        <url>git@github.com:ShingmoYeung/tio-websocket-spring-boot-starter.git</url>
     </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring.boot.version>2.0.9.RELEASE</spring.boot.version>
+        <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
+        <t-io.version>3.7.5.v20211028-RELEASE</t-io.version>
     </properties>
 
     <distributionManagement>
@@ -51,40 +52,52 @@
     </distributionManagement>
 
     <dependencies>
+        <!-- spring框架 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring.boot.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring.boot.version}</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.t-io</groupId>
+            <artifactId>tio-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.t-io</groupId>
             <artifactId>tio-websocket-server</artifactId>
-            <version>3.7.0.v20201010-RELEASE</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
-        </dependency>
-
-
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!-- springboot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- t-io -->
+            <dependency>
+                <groupId>org.t-io</groupId>
+                <artifactId>tio-parent</artifactId>
+                <version>${t-io.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -100,6 +113,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -145,5 +161,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -1,4 +1,4 @@
-package com.github.fanpan26;
+package com.github.shingmoyeung;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.SmartLifecycle;

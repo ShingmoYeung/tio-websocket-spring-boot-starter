@@ -1,4 +1,4 @@
-package com.github.fanpan26;
+package com.github.shingmoyeung;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,41 +23,34 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author fanyuepan
  */
 public class TioWebSocketServerBootstrap {
-
     private static final Logger logger = LoggerFactory.getLogger(TioWebSocketServerBootstrap.class);
-
     private AtomicBoolean started = new AtomicBoolean(false);
-
     private ApplicationContext applicationContext;
-
     private TioUuid uuid;
-
     private IWsMsgHandler msgHandler;
     private GroupListener groupListener;
     private IpStatListener ipStatListener;
-
     private WsServerConfig config;
     private WsServerStarter serverStarter;
     private TioWebSocketApplicationListener applicationListener;
     private TioWebSocketServerProperties properties;
-
     private ServerTioConfig tioConfig;
 
     public final ServerTioConfig getServerTioConfig() {
         return tioConfig;
     }
 
-    public TioWebSocketServerBootstrap(TioWebSocketServerProperties properties,ApplicationContext context) {
+    public TioWebSocketServerBootstrap(TioWebSocketServerProperties properties, ApplicationContext context) {
         this.properties = properties;
         this.applicationContext = context;
     }
 
     public final void start() {
-        if (started.get() == false) {
+        if (!started.get()) {
             try {
                 doInit();
                 doStart();
-                started.compareAndSet(false,true);
+                started.compareAndSet(false, true);
             } catch (Exception e) {
                 applicationListener.onException(e);
             }
@@ -80,13 +73,11 @@ public class TioWebSocketServerBootstrap {
     }
 
     private void initServerStarter() throws IOException {
-
         serverStarter = new WsServerStarter(config,
                 msgHandler,
                 uuid,
                 Threads.getTioExecutor(),
                 Threads.getGroupExecutor());
-
     }
 
     private void initOptionalBeans() {
@@ -95,7 +86,7 @@ public class TioWebSocketServerBootstrap {
         ipStatListener = getBean(IpStatListener.class);
         applicationListener = getBean(TioWebSocketApplicationListener.class);
 
-        if (uuid == null){
+        if (uuid == null) {
             uuid = new DefaultTioUuid();
         }
         if (applicationListener == null) {
@@ -129,12 +120,12 @@ public class TioWebSocketServerBootstrap {
         try {
             return applicationContext.getBean(clazz);
         } catch (Exception e) {
-            logger.info("No bean of type [" + clazz.getName() + "] registered");
+            logger.warn("No bean of type [" + clazz.getName() + "] registered. Error message {}", e.getMessage());
             return null;
         }
     }
 
-    private void initServerTioConfig() throws Exception{
+    private void initServerTioConfig() throws Exception {
         tioConfig = serverStarter.getServerTioConfig();
         tioConfig.setName(properties.getName());
         tioConfig.setHeartbeatTimeout(properties.getHeartbeatTimeout());
@@ -147,7 +138,6 @@ public class TioWebSocketServerBootstrap {
             TioWebSocketServerProperties.SslProperties ssl = properties.getSsl();
             tioConfig.setSslConfig(SslConfig.forServer(ssl.getKeyStore(), ssl.getTrustStore(), ssl.getPassword()));
         }
-
         applicationListener.onConfiguration(tioConfig);
     }
 
@@ -159,14 +149,16 @@ public class TioWebSocketServerBootstrap {
 
     /**
      * 用户使用时间接依赖版本，所以不做检查
-     * */
+     */
     private void closeCheckVersion() {
         try {
             TioServer server = serverStarter.getTioServer();
             Field field = server.getClass().getDeclaredField("checkLastVersion");
             field.setAccessible(true);
             field.set(server, false);
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            logger.error("Close check version error {}", e.getMessage());
+        }
     }
 
     public boolean isStarted() {
